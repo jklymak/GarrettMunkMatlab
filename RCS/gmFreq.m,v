@@ -1,0 +1,34 @@
+head	1.1;
+access;
+symbols;
+locks
+	jklymak:1.1; strict;
+comment	@// @;
+
+
+1.1
+date	2005.06.18.23.38.26;	author jklymak;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@function B = GMfreq(omega,f);
+% function B = GMfreq(omega,f);
+% Return the frequency part of the GM spectrum.
+%
+
+% $Id$ 
+
+B = (2/pi)*f./omega;
+B = B.*(omega.^2-f.^2).^(-0.5);
+
+% $Log$@

@@ -1,0 +1,68 @@
+head	1.1;
+access;
+symbols;
+locks
+	jklymak:1.1; strict;
+comment	@// @;
+
+
+1.1
+date	2008.11.25.22.18.30;	author jklymak;	state Exp;
+branches;
+next	;
+
+
+desc
+@Initial version
+@
+
+
+1.1
+log
+@Initial version
+@
+text
+@function S = GmOm(quant,om,f,N,params);
+% function S = GmOm(quant,om,f,N,params);
+% Return frequency-vertical wavenumber spectra. 
+%
+% quant is one of 'U','V','Vel' = U+V,
+% 'Uz','Vz','Shear','Disp','Strain'.   
+%
+% om are frequencies we want in the spectrum [rad/s].
+% 
+% f is the Coriolis freq [rad/s]
+% N is the buoyancy freq [rad/s]
+%
+% params is a list of parameters.  Must contain:
+%  params.s
+%        .t 
+%        .jstar
+%        .jp
+%
+% Optional parameters are:
+%        .b thermocline depth scale [1300 m].  
+%        .N0 thermocline strat. scale [5.2e-3 rad/s]
+%        .E0 Energy level [6.3e-5].
+%        .Nkz resolution of kz integration [10000].  
+%
+% For parameters, you can call Gm76Params.m etc...
+  
+% $Id$
+% J. Klymak, April, 2004.  
+
+if nargin<5
+  params= Gm76Params;
+end;
+
+Nkz = 10000;
+
+
+if size(om,2)==1
+  om=om';
+end;
+
+kz = linspace(1/1000,10,Nkz);
+S = GmOmKz(quant,om,kz,f,N,params);
+S=trapz(kz,S);
+@
